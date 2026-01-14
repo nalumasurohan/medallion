@@ -30,12 +30,15 @@ for file_name, table_name in TABLE_MAP.items():
     checksum = calculate_checksum(file_path)
 
     df.to_sql(
-        table_name,
-        engine,
-        schema="bronze",
-        if_exists="replace",
-        index=False
-    )
+    table_name,
+    engine,
+    schema="bronze",
+    if_exists="append",
+    index=False,
+    chunksize=5000,
+    method="multi"
+)
+
 
     audit_df = pd.DataFrame([{
         "table_name": f"bronze.{table_name}",

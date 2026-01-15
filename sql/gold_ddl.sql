@@ -9,7 +9,10 @@ select
     c.age,
 
     count(distinct a.account_id) as total_accounts,
-    count(distinct case when a.status = 'active' then a.account_id end) as active_accounts,
+  count(
+  distinct case when a.status = 'Active' then a.account_id end
+) as active_accounts,
+
 
     coalesce(sum(a.balance), 0) as total_balance,
 
